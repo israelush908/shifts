@@ -13,7 +13,7 @@
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700&display=swap');
   :root {
-    --bg:#1a1714;--card:#242019;--accent:#c9a96e;--accent-dim:#8a7245;
+    --bg:#1a1714;--card:#242019;--card2:#2e2820;--accent:#c9a96e;--accent-dim:#8a7245;
     --text:#e8e0d4;--dim:#9a9080;--border:#3a3428;
     --green:#5a9a5a;--green-bg:#2a3a28;--red:#c47a6a;--red-bg:#3a2828;
     --blue:#6a8fb5;--blue-bg:#28303a;--yellow:#d4a843;--yellow-bg:#3a3520;
@@ -29,14 +29,7 @@
   .header h1{font-size:20px;font-weight:300;color:var(--accent);margin-top:2px;}
   .header .sub{font-size:13px;color:var(--dim);margin-top:4px;}
 
-  /* Setup screen */
-  .setup{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:24px;text-align:center;}
-  .setup h2{font-size:18px;color:var(--accent);margin-bottom:16px;font-weight:400;}
-  .setup input{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:10px;
-    color:var(--text);font-size:15px;padding:12px 16px;outline:none;font-family:'Heebo',sans-serif;
-    margin-bottom:12px;text-align:center;}
-  .setup input:focus{border-color:var(--accent);}
-  .setup .hint{font-size:12px;color:var(--dim);margin-bottom:16px;line-height:1.6;}
+  /* Buttons */
   .btn{background:var(--accent);color:var(--bg);border:none;border-radius:10px;
     padding:12px 28px;font-size:15px;font-weight:600;cursor:pointer;
     font-family:'Heebo',sans-serif;transition:all 0.15s;width:100%;}
@@ -44,14 +37,38 @@
   .btn:disabled{opacity:0.4;transform:none;}
   .btn-outline{background:transparent;color:var(--accent);border:1px solid var(--accent);}
   .btn-sm{padding:8px 16px;font-size:13px;width:auto;}
+  .btn-red{background:var(--red);color:#fff;}
+  .btn-green{background:var(--green);color:#fff;}
+  .btn-row{display:flex;gap:8px;margin-top:12px;}
 
-  /* Employee greeting */
+  /* Inputs */
+  .input{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:10px;
+    color:var(--text);font-size:14px;padding:10px 14px;outline:none;font-family:'Heebo',sans-serif;}
+  .input:focus{border-color:var(--accent);}
+  .input-sm{padding:8px 10px;font-size:13px;}
+  select.input{appearance:none;-webkit-appearance:none;cursor:pointer;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%239a9080' viewBox='0 0 16 16'%3E%3Cpath d='m8 11-5-5h10z'/%3E%3C/svg%3E");
+    background-repeat:no-repeat;background-position:left 12px center;}
+  .label{font-size:12px;color:var(--dim);margin-bottom:4px;display:block;}
+
+  /* Cards & Sections */
+  .card{background:var(--card);border:1px solid var(--border);border-radius:14px;
+    overflow:hidden;margin-bottom:12px;padding:16px;}
+  .card-title{font-size:15px;font-weight:600;color:var(--accent);margin-bottom:12px;
+    display:flex;align-items:center;gap:8px;}
+  .section-divider{height:1px;background:var(--border);margin:16px 0;}
+
+  /* Setup */
+  .setup{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:24px;text-align:center;}
+  .setup h2{font-size:18px;color:var(--accent);margin-bottom:16px;font-weight:400;}
+  .setup .hint{font-size:12px;color:var(--dim);margin-bottom:16px;line-height:1.6;}
+
+  /* Employee view */
   .greeting{background:var(--card);border:1px solid var(--border);border-radius:16px;
     padding:18px;margin-bottom:16px;text-align:center;}
   .greeting .name{font-size:22px;font-weight:600;color:var(--accent);}
   .greeting .info{font-size:13px;color:var(--dim);margin-top:4px;}
 
-  /* Week card */
   .week-card{background:var(--card);border:1px solid var(--border);border-radius:14px;
     overflow:hidden;margin-bottom:12px;}
   .week-head{padding:10px 16px;background:var(--border);font-size:14px;font-weight:600;color:var(--accent);}
@@ -68,31 +85,31 @@
   .pref-btn{border:none;border-radius:8px;padding:6px 10px;font-size:11px;font-weight:600;
     cursor:pointer;font-family:'Heebo',sans-serif;transition:all 0.15s;min-width:48px;}
   .pref-btn:active{transform:scale(0.93);}
-  .pref-btn.want{background:var(--green-bg);color:var(--green);border:1px solid var(--green)44;}
+  .pref-btn.want{background:var(--green-bg);color:var(--green);border:1px solid #5a9a5a44;}
   .pref-btn.want.active{background:var(--green);color:#fff;}
-  .pref-btn.can{background:var(--yellow-bg);color:var(--yellow);border:1px solid var(--yellow)44;}
+  .pref-btn.can{background:var(--yellow-bg);color:var(--yellow);border:1px solid #d4a84344;}
   .pref-btn.can.active{background:var(--yellow);color:#fff;}
-  .pref-btn.cant{background:var(--red-bg);color:var(--red);border:1px solid var(--red)44;}
+  .pref-btn.cant{background:var(--red-bg);color:var(--red);border:1px solid #c47a6a44;}
   .pref-btn.cant.active{background:var(--red);color:#fff;}
 
-  /* Submit bar */
   .submit-bar{position:sticky;bottom:0;padding:12px 0 calc(12px + var(--safe-bottom));
     background:linear-gradient(transparent, var(--bg) 20%);margin-top:8px;}
   .submit-bar .btn{box-shadow:0 -4px 20px rgba(0,0,0,0.5);}
   .progress{font-size:12px;color:var(--dim);text-align:center;margin-bottom:8px;}
   .progress strong{color:var(--accent);}
 
-  /* Status toast */
+  /* Toast */
   .toast{position:fixed;top:20px;left:50%;transform:translateX(-50%);
     background:var(--green);color:#fff;padding:10px 24px;border-radius:10px;
     font-size:14px;font-weight:600;z-index:999;opacity:0;transition:opacity 0.3s;pointer-events:none;}
   .toast.show{opacity:1;}
   .toast.error{background:var(--red);}
 
-  /* Admin dashboard */
-  .admin-tabs{display:flex;gap:6px;margin-bottom:16px;overflow-x:auto;}
+  /* Admin tabs */
+  .admin-tabs{display:flex;gap:6px;margin-bottom:16px;overflow-x:auto;
+    -webkit-overflow-scrolling:touch;padding-bottom:4px;}
   .admin-tab{background:transparent;color:var(--dim);border:1px solid var(--border);
-    border-radius:10px;padding:9px 16px;font-size:13px;cursor:pointer;
+    border-radius:10px;padding:9px 14px;font-size:12px;cursor:pointer;
     font-family:'Heebo',sans-serif;white-space:nowrap;flex-shrink:0;transition:all 0.15s;}
   .admin-tab.active{background:var(--accent);color:var(--bg);border-color:var(--accent);font-weight:600;}
 
@@ -104,14 +121,15 @@
   .emp-card{background:var(--card);border:1px solid var(--border);border-radius:12px;
     padding:14px 16px;margin-bottom:8px;display:flex;align-items:center;gap:12px;}
   .emp-avatar{width:36px;height:36px;border-radius:50%;background:var(--accent-dim);
-    display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;color:var(--bg);}
-  .emp-info{flex:1;}
+    display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;color:var(--bg);flex-shrink:0;}
+  .emp-info{flex:1;min-width:0;}
   .emp-name{font-size:15px;font-weight:600;}
   .emp-status{font-size:12px;margin-top:2px;}
   .emp-status.done{color:var(--green);}
   .emp-status.pending{color:var(--red);}
   .emp-link{font-size:11px;color:var(--blue);cursor:pointer;text-decoration:underline;
     word-break:break-all;display:block;margin-top:4px;}
+  .emp-del{color:var(--red);cursor:pointer;font-size:18px;padding:4px 8px;flex-shrink:0;}
 
   /* Matrix */
   .matrix-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:16px;}
@@ -123,21 +141,33 @@
   .matrix .want{background:var(--green-bg);color:var(--green);font-weight:700;}
   .matrix .can{background:var(--yellow-bg);color:var(--yellow);}
   .matrix .cant{background:var(--red-bg);color:var(--red);}
-  .matrix .empty{color:var(--dim);}
+  .matrix .empty-cell{color:var(--dim);}
+
+  /* Settings shift rows */
+  .shift-edit-row{display:flex;align-items:center;gap:6px;padding:8px 0;
+    border-bottom:1px solid rgba(58,52,40,0.15);}
+  .shift-edit-row:last-child{border-bottom:none;}
+  .shift-edit-row select,.shift-edit-row input{flex:1;}
+  .shift-edit-row .del-btn{color:var(--red);cursor:pointer;font-size:20px;padding:0 6px;flex-shrink:0;}
+
+  /* Toggle */
+  .toggle-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;}
+  .toggle{width:48px;height:26px;border-radius:13px;border:none;cursor:pointer;position:relative;transition:background 0.2s;}
+  .toggle.on{background:var(--green);}
+  .toggle.off{background:var(--red);}
+  .toggle::after{content:'';position:absolute;top:3px;width:20px;height:20px;border-radius:50%;
+    background:#fff;transition:right 0.2s, left 0.2s;}
+  .toggle.on::after{right:3px;left:auto;}
+  .toggle.off::after{left:3px;right:auto;}
 
   .loading{text-align:center;padding:40px;color:var(--dim);}
   .loading .spin{display:inline-block;width:24px;height:24px;border:3px solid var(--border);
     border-top-color:var(--accent);border-radius:50%;animation:spin 0.8s linear infinite;}
   @keyframes spin{to{transform:rotate(360deg)}}
-
   .empty-state{text-align:center;padding:40px;color:var(--dim);}
   .empty-state .icon{font-size:40px;margin-bottom:12px;}
-
-  .card{background:var(--card);border:1px solid var(--border);border-radius:14px;
-    overflow:hidden;margin-bottom:12px;padding:16px;}
-
   @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-  .week-card,.emp-card,.stat-card{animation:fadeUp 0.25s ease-out;}
+  .card,.emp-card,.stat-card,.week-card{animation:fadeUp 0.25s ease-out;}
 </style>
 </head>
 <body>
@@ -146,38 +176,44 @@
 
 <script>
 // ============================
-// CONFIG — הדבק כאן את ה-URL של ה-Apps Script
+// CONFIG
 // ============================
 let API_URL = localStorage.getItem('shifts67_api') || '';
-
-// ============================
-// SHIFT DEFINITIONS
-// ============================
-const SHIFT_TEMPLATES = [
-  { day: 3, dayName: 'רביעי', shifts: [{ start: '16:00', end: '00:00', hours: 8 }, { start: '17:00', end: '00:00', hours: 7 }] },
-  { day: 4, dayName: 'חמישי', shifts: [{ start: '17:00', end: '22:00', hours: 5 }, { start: '17:00', end: '00:00', hours: 7 }, { start: '17:30', end: '00:00', hours: 6.5 }] },
-  { day: 5, dayName: 'שישי', shifts: [{ start: '08:00', end: '16:00', hours: 8 }, { start: '08:00', end: '16:00', hours: 8 }, { start: '10:00', end: '17:00', hours: 7 }, { start: '12:00', end: '17:00', hours: 5 }] },
-  { day: 6, dayName: 'מוצ"ש', shifts: [{ start: '20:00', end: '00:00', hours: 4 }, { start: '20:00', end: '00:00', hours: 4 }] },
-];
-
-const DAYS_HEB = ['ראשון','שני','רביעי','חמישי','שישי','שבת'];
+const DAY_NAMES = ['ראשון','שני','שלישי','רביעי','חמישי','שישי','מוצ"ש'];
+const MONTH_NAMES = ['','ינואר','פברואר','מרץ','אפריל','מאי','יוני','יולי','אוגוסט','ספטמבר','אוקטובר','נובמבר','דצמבר'];
 
 // ============================
 // UTILITY
 // ============================
+const app = document.getElementById('app');
 function getParams() {
   const p = new URLSearchParams(location.search);
   return { code: p.get('code'), admin: p.get('admin') };
 }
-
 function toast(msg, isError) {
   const t = document.getElementById('toast');
   t.textContent = msg;
   t.className = 'toast show' + (isError ? ' error' : '');
   setTimeout(() => t.className = 'toast', 2500);
 }
+function calcHours(start, end) {
+  const [sh, sm] = start.split(':').map(Number);
+  const [eh, em] = end.split(':').map(Number);
+  let diff = (eh * 60 + em) - (sh * 60 + sm);
+  if (diff <= 0) diff += 24 * 60;
+  return Math.round(diff / 30) * 0.5;
+}
 
-function generateMonthShifts(month, year) {
+// Generate month shifts from templates
+function generateMonthShifts(month, year, templates) {
+  // Group templates by day
+  const byDay = {};
+  templates.forEach(t => {
+    const d = Number(t.day);
+    if (!byDay[d]) byDay[d] = [];
+    byDay[d].push(t);
+  });
+
   const weeks = [];
   let currentWeek = [];
   let weekNum = 1;
@@ -185,27 +221,21 @@ function generateMonthShifts(month, year) {
 
   for (let d = 1; d <= daysInMonth; d++) {
     const date = new Date(year, month - 1, d);
-    const jsDay = date.getDay(); // 0=Sun
+    const jsDay = date.getDay();
 
-    const template = SHIFT_TEMPLATES.find(t => t.day === jsDay);
-    if (template) {
+    if (byDay[jsDay]) {
       const dateStr = `${d}/${month}`;
       currentWeek.push({
         date: dateStr,
-        fullDate: date,
-        dayName: template.dayName,
+        dayName: byDay[jsDay][0].dayName,
         jsDay,
-        shifts: template.shifts.map((s, i) => ({
-          id: `${dateStr}_${s.start}-${s.end}_${i}`,
-          start: s.start,
-          end: s.end,
-          hours: s.hours,
-          label: `${s.start}–${s.end}`
-        }))
+        shifts: byDay[jsDay].map((s, i) => {
+          const hours = calcHours(s.start, s.end);
+          const label = `${s.start}–${s.end}`;
+          return { id: `${dateStr}_${label}_${i}`, start: s.start, end: s.end, hours, label };
+        })
       });
     }
-
-    // End of week on Saturday or end of month
     if (jsDay === 6 || d === daysInMonth) {
       if (currentWeek.length > 0) {
         weeks.push({ num: weekNum++, days: currentWeek });
@@ -217,17 +247,13 @@ function generateMonthShifts(month, year) {
 }
 
 // ============================
-// API CALLS
+// API
 // ============================
 function apiGet(action, params = {}) {
   return new Promise((resolve, reject) => {
     const cbName = '_cb_' + Math.random().toString(36).slice(2);
     const qs = new URLSearchParams({ action, callback: cbName, ...params }).toString();
-    window[cbName] = (data) => {
-      delete window[cbName];
-      document.getElementById('_jsonp')?.remove();
-      resolve(data);
-    };
+    window[cbName] = (data) => { delete window[cbName]; document.getElementById('_jsonp')?.remove(); resolve(data); };
     const s = document.createElement('script');
     s.id = '_jsonp';
     s.src = API_URL + '?' + qs;
@@ -235,377 +261,422 @@ function apiGet(action, params = {}) {
     document.body.appendChild(s);
   });
 }
-
 function apiPost(data) {
-  return fetch(API_URL, {
-    method: 'POST',
-    headers: { 'Content-Type': 'text/plain' },
-    body: JSON.stringify(data)
-  }).then(r => r.json());
+  return fetch(API_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify(data) }).then(r => r.json());
 }
 
 // ============================
-// SCREENS
+// ROUTING
 // ============================
-const app = document.getElementById('app');
 const { code, admin } = getParams();
-
-// --- Initial routing ---
 function init() {
-  if (!API_URL) {
-    renderSetup();
-  } else if (admin) {
-    renderAdmin();
-  } else if (code) {
-    renderEmployee(code);
-  } else {
-    renderLanding();
-  }
+  if (!API_URL) renderSetup();
+  else if (admin) renderAdmin();
+  else if (code) renderEmployee(code);
+  else renderLanding();
 }
 
-// --- Setup screen (first time) ---
+// ============================
+// SETUP SCREEN
+// ============================
 function renderSetup() {
   app.innerHTML = `
-    <div class="header">
-      <small>67 Winery</small>
-      <h1>הגדרת מערכת משמרות</h1>
-    </div>
+    <div class="header"><small>67 Winery</small><h1>הגדרת מערכת משמרות</h1></div>
     <div class="setup">
       <h2>🔗 חיבור ל-Google Sheets</h2>
-      <div class="hint">
-        הדבק כאן את כתובת ה-URL של ה-Apps Script Web App<br>
-        (ההוראות המלאות בקובץ README)
-      </div>
-      <input type="url" id="apiInput" placeholder="https://script.google.com/macros/s/..." dir="ltr">
+      <div class="hint">הדבק את כתובת ה-URL של ה-Apps Script Web App</div>
+      <input class="input" type="url" id="apiInput" placeholder="https://script.google.com/macros/s/..." dir="ltr" style="margin-bottom:12px;">
       <button class="btn" onclick="saveApi()">חבר</button>
-    </div>
-  `;
+    </div>`;
 }
-
 function saveApi() {
   const url = document.getElementById('apiInput').value.trim();
-  if (!url.includes('script.google.com')) {
-    toast('כתובת לא תקינה', true);
-    return;
-  }
-  API_URL = url;
-  localStorage.setItem('shifts67_api', url);
-  toast('מחובר!');
-  setTimeout(() => location.reload(), 500);
+  if (!url.includes('script.google.com')) { toast('כתובת לא תקינה', true); return; }
+  API_URL = url; localStorage.setItem('shifts67_api', url);
+  toast('מחובר!'); setTimeout(() => location.reload(), 500);
 }
 
-// --- Landing (no code, no admin) ---
+// ============================
+// LANDING
+// ============================
 function renderLanding() {
   app.innerHTML = `
-    <div class="header">
-      <small>67 Winery</small>
-      <h1>מערכת משמרות</h1>
-    </div>
-    <div class="empty-state">
-      <div class="icon">🔐</div>
-      <p>הקישור שקיבלת לא מכיל קוד זיהוי.</p>
-      <p style="margin-top:8px;font-size:13px;">בקש מהמנהל לינק אישי.</p>
-    </div>
+    <div class="header"><small>67 Winery</small><h1>מערכת משמרות</h1></div>
+    <div class="empty-state"><div class="icon">🔐</div><p>הקישור לא מכיל קוד זיהוי.</p>
+      <p style="margin-top:8px;font-size:13px;">בקש מהמנהל לינק אישי.</p></div>
     <div style="margin-top:24px;text-align:center;">
       <button class="btn btn-outline btn-sm" onclick="location.href='?admin=1'" style="width:auto;display:inline-block;">כניסת מנהל</button>
       <button class="btn btn-outline btn-sm" style="width:auto;display:inline-block;margin-right:8px;" onclick="localStorage.removeItem('shifts67_api');location.reload();">שנה API</button>
-    </div>
-  `;
+    </div>`;
 }
 
 // ============================
 // EMPLOYEE VIEW
 // ============================
-let preferences = {};
-let empName = '';
-let configData = {};
+let preferences = {}, empName = '', configData = {}, shiftTemplates = [];
 
 async function renderEmployee(code) {
   app.innerHTML = `<div class="loading"><div class="spin"></div><div style="margin-top:12px;">טוען...</div></div>`;
-
   try {
-    const [emp, config, myResp] = await Promise.all([
-      apiGet('identify', { code }),
-      apiGet('config'),
-      apiGet('my_responses', { code })
+    const [emp, config, myResp, templates] = await Promise.all([
+      apiGet('identify', { code }), apiGet('config'), apiGet('my_responses', { code }), apiGet('shift_templates')
     ]);
+    if (emp.error) { app.innerHTML = `<div class="empty-state"><div class="icon">❌</div><p>קוד לא מזוהה</p></div>`; return; }
+    if (config.status !== 'פתוח') { app.innerHTML = `<div class="empty-state"><div class="icon">🔒</div><p>הגשת משמרות סגורה כרגע</p></div>`; return; }
 
-    if (emp.error) {
-      app.innerHTML = `<div class="empty-state"><div class="icon">❌</div><p>קוד לא מזוהה</p></div>`;
-      return;
-    }
+    empName = emp.name; configData = config; shiftTemplates = templates;
+    const weeks = generateMonthShifts(config.month, config.year, templates);
 
-    if (config.status !== 'פתוח') {
-      app.innerHTML = `<div class="empty-state"><div class="icon">🔒</div><p>הגשת משמרות סגורה כרגע</p><p style="font-size:13px;margin-top:8px;">המנהל יפתח את ההגשה בקרוב.</p></div>`;
-      return;
-    }
-
-    empName = emp.name;
-    configData = config;
-    const weeks = generateMonthShifts(config.month, config.year);
-
-    // Load existing responses
     preferences = {};
-    if (Array.isArray(myResp)) {
-      myResp.forEach(r => {
-        preferences[`${r.date}_${r.shift}`] = r.pref;
-      });
-    }
+    if (Array.isArray(myResp)) myResp.forEach(r => { preferences[`${r.date}_${r.shift}`] = r.pref; });
 
-    const monthNames = ['','ינואר','פברואר','מרץ','אפריל','מאי','יוני','יולי','אוגוסט','ספטמבר','אוקטובר','נובמבר','דצמבר'];
     const totalShifts = weeks.reduce((s, w) => s + w.days.reduce((s2, d) => s2 + d.shifts.length, 0), 0);
 
     let html = `
-      <div class="header">
-        <small>67 Winery</small>
-        <h1>הגשת משמרות</h1>
-        <div class="sub">${monthNames[config.month]} ${config.year}</div>
-      </div>
-      <div class="greeting">
-        <div class="name">היי ${empName} 👋</div>
-        <div class="info">סמנ/י העדפה לכל משמרת ולחצ/י שלח בסוף</div>
-      </div>
-    `;
+      <div class="header"><small>67 Winery</small><h1>הגשת משמרות</h1>
+        <div class="sub">${MONTH_NAMES[config.month]} ${config.year}</div></div>
+      <div class="greeting"><div class="name">היי ${empName} 👋</div>
+        <div class="info">סמנ/י העדפה לכל משמרת ולחצ/י שלח בסוף</div></div>`;
 
     weeks.forEach(week => {
       html += `<div class="week-card"><div class="week-head">שבוע ${week.num}</div>`;
       week.days.forEach(day => {
-        html += `<div class="day-section">
-          <div class="day-head"><span>${day.dayName}</span><span class="day-date">${day.date}</span></div>`;
+        html += `<div class="day-section"><div class="day-head"><span>${day.dayName}</span><span class="day-date">${day.date}</span></div>`;
         day.shifts.forEach(shift => {
           const key = `${day.date}_${shift.label}`;
           const cur = preferences[key] || '';
-          html += `
-            <div class="shift-row">
-              <span class="shift-time">${shift.label}</span>
-              <span class="shift-hours">${shift.hours}h</span>
-              <div class="pref-btns">
-                <button class="pref-btn want ${cur === 'רוצה' ? 'active' : ''}" onclick="setPref('${key}','רוצה',this)">רוצה</button>
-                <button class="pref-btn can ${cur === 'יכול' ? 'active' : ''}" onclick="setPref('${key}','יכול',this)">יכול</button>
-                <button class="pref-btn cant ${cur === 'לא יכול' ? 'active' : ''}" onclick="setPref('${key}','לא יכול',this)">לא יכול</button>
-              </div>
-            </div>`;
+          html += `<div class="shift-row">
+            <span class="shift-time">${shift.label}</span><span class="shift-hours">${shift.hours}h</span>
+            <div class="pref-btns">
+              <button class="pref-btn want ${cur==='רוצה'?'active':''}" onclick="setPref('${key}','רוצה',this)">רוצה</button>
+              <button class="pref-btn can ${cur==='יכול'?'active':''}" onclick="setPref('${key}','יכול',this)">יכול</button>
+              <button class="pref-btn cant ${cur==='לא יכול'?'active':''}" onclick="setPref('${key}','לא יכול',this)">לא יכול</button>
+            </div></div>`;
         });
         html += `</div>`;
       });
       html += `</div>`;
     });
 
-    html += `
-      <div class="submit-bar">
-        <div class="progress" id="progress">סומנו <strong>0</strong> מתוך <strong>${totalShifts}</strong> משמרות</div>
-        <button class="btn" id="submitBtn" onclick="submitPrefs()">שלח העדפות</button>
-      </div>
-    `;
-
+    html += `<div class="submit-bar">
+      <div class="progress" id="progress">סומנו <strong>0</strong> מתוך <strong>${totalShifts}</strong></div>
+      <button class="btn" id="submitBtn" onclick="submitPrefs()">שלח העדפות</button></div>`;
     app.innerHTML = html;
     updateProgress(totalShifts);
-
   } catch (err) {
-    app.innerHTML = `<div class="empty-state"><div class="icon">⚠️</div><p>שגיאה בטעינה</p><p style="font-size:12px;margin-top:8px;">${err.message}</p></div>`;
+    app.innerHTML = `<div class="empty-state"><div class="icon">⚠️</div><p>שגיאה: ${err.message}</p></div>`;
   }
 }
 
 function setPref(key, pref, btn) {
-  // Toggle off if same button
-  if (preferences[key] === pref) {
-    delete preferences[key];
-    btn.classList.remove('active');
-  } else {
-    preferences[key] = pref;
-    // Update UI
-    const row = btn.parentElement;
-    row.querySelectorAll('.pref-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-  }
-  const totalShifts = document.querySelectorAll('.shift-row').length;
-  updateProgress(totalShifts);
+  if (preferences[key] === pref) { delete preferences[key]; btn.classList.remove('active'); }
+  else { preferences[key] = pref; btn.parentElement.querySelectorAll('.pref-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); }
+  updateProgress(document.querySelectorAll('.shift-row').length);
 }
-
 function updateProgress(total) {
   const filled = Object.keys(preferences).length;
-  const prog = document.getElementById('progress');
-  if (prog) prog.innerHTML = `סומנו <strong>${filled}</strong> מתוך <strong>${total}</strong> משמרות`;
-  const btn = document.getElementById('submitBtn');
-  if (btn) btn.disabled = filled === 0;
+  const p = document.getElementById('progress');
+  if (p) p.innerHTML = `סומנו <strong>${filled}</strong> מתוך <strong>${total}</strong>`;
+  const b = document.getElementById('submitBtn');
+  if (b) b.disabled = filled === 0;
 }
-
 async function submitPrefs() {
   const btn = document.getElementById('submitBtn');
-  btn.disabled = true;
-  btn.textContent = 'שולח...';
-
+  btn.disabled = true; btn.textContent = 'שולח...';
   const prefs = Object.entries(preferences).map(([key, pref]) => {
-    const parts = key.split('_');
-    const date = parts[0];
-    const shift = parts.slice(1).join('_');
-    return { date, shift, pref };
+    const [date, ...rest] = key.split('_');
+    return { date, shift: rest.join('_'), pref };
   });
-
   try {
-    await apiPost({
-      code: getParams().code,
-      month: configData.month,
-      year: configData.year,
-      preferences: prefs
-    });
-    toast('נשלח בהצלחה! ✅');
-    btn.textContent = '✅ נשלח!';
-    btn.style.background = 'var(--green)';
-  } catch (err) {
-    toast('שגיאה בשליחה', true);
-    btn.disabled = false;
-    btn.textContent = 'שלח העדפות';
-  }
+    await apiPost({ action: 'submit_prefs', code: getParams().code, month: configData.month, year: configData.year, preferences: prefs });
+    toast('נשלח בהצלחה! ✅'); btn.textContent = '✅ נשלח!'; btn.style.background = 'var(--green)';
+  } catch { toast('שגיאה בשליחה', true); btn.disabled = false; btn.textContent = 'שלח העדפות'; }
 }
 
 // ============================
 // ADMIN VIEW
 // ============================
-let adminTab = 'overview';
-let adminData = {};
+let adminTab = 'overview', adminData = {};
 
 async function renderAdmin() {
-  app.innerHTML = `<div class="loading"><div class="spin"></div><div style="margin-top:12px;">טוען נתונים...</div></div>`;
-
+  app.innerHTML = `<div class="loading"><div class="spin"></div><div style="margin-top:12px;">טוען...</div></div>`;
   try {
-    const [config, employees, responses] = await Promise.all([
-      apiGet('config'),
-      apiGet('employees'),
-      apiGet('responses')
+    const [config, employees, responses, templates] = await Promise.all([
+      apiGet('config'), apiGet('employees'), apiGet('responses'), apiGet('shift_templates')
     ]);
-
-    adminData = { config, employees, responses };
+    adminData = { config, employees, responses, templates };
     renderAdminUI();
   } catch (err) {
-    app.innerHTML = `<div class="empty-state"><div class="icon">⚠️</div><p>שגיאה בטעינה</p>
-      <p style="font-size:12px;margin-top:8px;">${err.message}</p>
+    app.innerHTML = `<div class="empty-state"><div class="icon">⚠️</div><p>שגיאה: ${err.message}</p>
       <button class="btn btn-sm" style="margin-top:16px;width:auto;" onclick="renderAdmin()">נסה שוב</button></div>`;
   }
 }
 
 function renderAdminUI() {
-  const { config, employees, responses } = adminData;
-  const monthNames = ['','ינואר','פברואר','מרץ','אפריל','מאי','יוני','יולי','אוגוסט','ספטמבר','אוקטובר','נובמבר','דצמבר'];
-  const weeks = generateMonthShifts(config.month, config.year);
+  const { config, employees, responses, templates } = adminData;
+  const weeks = generateMonthShifts(config.month, config.year, templates);
   const totalShifts = weeks.reduce((s, w) => s + w.days.reduce((s2, d) => s2 + d.shifts.length, 0), 0);
-
-  // Calc who submitted
   const submittedSet = new Set((responses || []).map(r => r.name));
   const submitted = employees.filter(e => submittedSet.has(e.name)).length;
   const baseUrl = location.origin + location.pathname;
+  const isOpen = config.status === 'פתוח';
 
   let html = `
-    <div class="header">
-      <small>67 Winery</small>
-      <h1>דשבורד מנהל — משמרות</h1>
-      <div class="sub">${monthNames[config.month]} ${config.year} · סטטוס: ${config.status === 'פתוח' ? '🟢 פתוח' : '🔴 סגור'}</div>
-    </div>
-
+    <div class="header"><small>67 Winery</small><h1>דשבורד מנהל</h1>
+      <div class="sub">${MONTH_NAMES[config.month]} ${config.year} · ${isOpen ? '🟢 פתוח' : '🔴 סגור'}</div></div>
     <div class="stat-grid">
       <div class="stat-card"><div class="stat-num">${employees.length}</div><div class="stat-label">עובדים</div></div>
       <div class="stat-card"><div class="stat-num">${submitted}/${employees.length}</div><div class="stat-label">הגישו</div></div>
       <div class="stat-card"><div class="stat-num">${totalShifts}</div><div class="stat-label">משמרות בחודש</div></div>
       <div class="stat-card"><div class="stat-num">${(responses||[]).length}</div><div class="stat-label">תגובות</div></div>
     </div>
-
     <div class="admin-tabs">
-      <button class="admin-tab ${adminTab==='overview'?'active':''}" onclick="adminTab='overview';renderAdminUI()">👥 עובדים ולינקים</button>
-      <button class="admin-tab ${adminTab==='matrix'?'active':''}" onclick="adminTab='matrix';renderAdminUI()">📊 מטריצה</button>
-    </div>
-  `;
+      ${['overview','matrix','shifts','settings'].map(t => {
+        const labels = {overview:'👥 עובדים',matrix:'📊 מטריצה',shifts:'🕐 משמרות',settings:'⚙️ הגדרות'};
+        return `<button class="admin-tab ${adminTab===t?'active':''}" onclick="adminTab='${t}';renderAdminUI()">${labels[t]}</button>`;
+      }).join('')}
+    </div>`;
 
+  // === OVERVIEW TAB ===
   if (adminTab === 'overview') {
+    // Add employee
+    html += `<div class="card">
+      <div class="card-title">➕ הוסף עובד/ת</div>
+      <div style="display:flex;gap:8px;">
+        <input class="input input-sm" id="newEmpName" placeholder="שם העובד/ת" style="flex:1;">
+        <button class="btn btn-sm btn-green" onclick="addEmployee()">הוסף</button>
+      </div></div>`;
+
     if (employees.length === 0) {
-      html += `<div class="card" style="text-align:center;"><p>אין עובדים עדיין</p><p style="font-size:13px;color:var(--dim);margin-top:8px;">הוסף שמות בגיליון "עובדים" ב-Google Sheets<br>ולחץ "צור קודים" מהתפריט</p></div>`;
+      html += `<div class="card" style="text-align:center;"><p style="color:var(--dim);">אין עובדים עדיין</p></div>`;
     } else {
       employees.forEach(emp => {
-        const didSubmit = submittedSet.has(emp.name);
+        const did = submittedSet.has(emp.name);
         const link = `${baseUrl}?code=${emp.code}`;
-        const initial = emp.name.charAt(0);
-        html += `
-          <div class="emp-card">
-            <div class="emp-avatar">${initial}</div>
-            <div class="emp-info">
-              <div class="emp-name">${emp.name}</div>
-              <div class="emp-status ${didSubmit ? 'done' : 'pending'}">${didSubmit ? '✅ הגיש/ה' : '⏳ ממתין/ה'}</div>
-              <div class="emp-link" onclick="copyLink('${link}')">${link}</div>
-            </div>
-          </div>`;
+        html += `<div class="emp-card">
+          <div class="emp-avatar">${emp.name.charAt(0)}</div>
+          <div class="emp-info">
+            <div class="emp-name">${emp.name}</div>
+            <div class="emp-status ${did?'done':'pending'}">${did?'✅ הגיש/ה':'⏳ ממתין/ה'}</div>
+            <div class="emp-link" onclick="copyLink('${link}')">📋 העתק לינק</div>
+          </div>
+          <div class="emp-del" onclick="removeEmployee('${emp.code}','${emp.name}')">🗑️</div>
+        </div>`;
       });
     }
   }
 
+  // === MATRIX TAB ===
   if (adminTab === 'matrix') {
     if (!responses || responses.length === 0) {
       html += `<div class="card" style="text-align:center;"><div style="font-size:32px;margin-bottom:8px;">📭</div><p>עדיין אין תגובות</p></div>`;
     } else {
-      // Build matrix: rows = shifts (date+time), columns = employees
       const empNames = [...new Set(responses.map(r => r.name))];
       const shiftKeys = [];
       weeks.forEach(w => w.days.forEach(d => d.shifts.forEach(s => {
         shiftKeys.push({ date: d.date, shift: s.label, day: d.dayName });
       })));
-
       const respMap = {};
-      responses.forEach(r => {
-        respMap[`${r.name}_${r.date}_${r.shift}`] = r.pref;
-      });
+      responses.forEach(r => { respMap[`${r.name}_${r.date}_${r.shift}`] = r.pref; });
 
       html += `<div class="matrix-wrap"><table class="matrix"><thead><tr><th>משמרת</th>`;
       empNames.forEach(n => { html += `<th>${n}</th>`; });
       html += `</tr></thead><tbody>`;
-
       shiftKeys.forEach(sk => {
         html += `<tr><td>${sk.day} ${sk.date}<br>${sk.shift}</td>`;
         empNames.forEach(n => {
           const pref = respMap[`${n}_${sk.date}_${sk.shift}`] || '';
-          let cls = 'empty';
-          let txt = '—';
-          if (pref === 'רוצה') { cls = 'want'; txt = '✓✓'; }
-          else if (pref === 'יכול') { cls = 'can'; txt = '✓'; }
-          else if (pref === 'לא יכול') { cls = 'cant'; txt = '✗'; }
+          const cls = pref === 'רוצה' ? 'want' : pref === 'יכול' ? 'can' : pref === 'לא יכול' ? 'cant' : 'empty-cell';
+          const txt = pref === 'רוצה' ? '✓✓' : pref === 'יכול' ? '✓' : pref === 'לא יכול' ? '✗' : '—';
           html += `<td class="${cls}">${txt}</td>`;
         });
         html += `</tr>`;
       });
-
       html += `</tbody></table></div>`;
-      html += `<div style="font-size:11px;color:var(--dim);text-align:center;margin-top:8px;">✓✓ = רוצה &nbsp; ✓ = יכול &nbsp; ✗ = לא יכול</div>`;
+      html += `<div style="font-size:11px;color:var(--dim);text-align:center;margin-top:8px;">✓✓ רוצה · ✓ יכול · ✗ לא יכול</div>`;
     }
   }
 
-  html += `
-    <div style="margin-top:24px;text-align:center;">
-      <button class="btn btn-outline btn-sm" style="width:auto;display:inline-block;" onclick="renderAdmin()">🔄 רענן</button>
-      <button class="btn btn-outline btn-sm" style="width:auto;display:inline-block;margin-right:8px;" onclick="localStorage.removeItem('shifts67_api');location.reload();">⚙️ שנה API</button>
-    </div>
-  `;
+  // === SHIFTS TAB ===
+  if (adminTab === 'shifts') {
+    html += `<div class="card">
+      <div class="card-title">🕐 תבניות משמרות שבועיות</div>
+      <p style="font-size:12px;color:var(--dim);margin-bottom:12px;">הגדר את כל המשמרות שחוזרות כל שבוע. שינויים ישפיעו על החודש הבא שייפתח.</p>
+      <div id="shiftsList">`;
+
+    (templates || []).forEach((t, i) => {
+      html += buildShiftEditRow(i, t);
+    });
+
+    html += `</div>
+      <button class="btn btn-outline btn-sm" style="margin-top:12px;" onclick="addShiftRow()">+ הוסף משמרת</button>
+      <div class="section-divider"></div>
+      <button class="btn" onclick="saveShifts()">💾 שמור משמרות</button>
+    </div>`;
+
+    // Summary
+    const totalWeeklyHours = (templates || []).reduce((s, t) => s + calcHours(t.start, t.end), 0);
+    html += `<div class="card" style="text-align:center;">
+      <div style="font-size:13px;color:var(--dim);">סה״כ שבועי</div>
+      <div style="font-size:28px;font-weight:700;color:var(--accent);">${totalWeeklyHours} שעות</div>
+      <div style="font-size:12px;color:var(--dim);">${(templates||[]).length} משמרות בשבוע</div>
+    </div>`;
+  }
+
+  // === SETTINGS TAB ===
+  if (adminTab === 'settings') {
+    html += `<div class="card">
+      <div class="card-title">📅 חודש פעיל</div>
+      <div style="display:flex;gap:8px;margin-bottom:12px;">
+        <div style="flex:1;"><label class="label">חודש</label>
+          <select class="input input-sm" id="cfgMonth">${[1,2,3,4,5,6,7,8,9,10,11,12].map(m =>
+            `<option value="${m}" ${m==config.month?'selected':''}>${MONTH_NAMES[m]}</option>`).join('')}
+          </select></div>
+        <div style="flex:1;"><label class="label">שנה</label>
+          <select class="input input-sm" id="cfgYear">${[2025,2026,2027].map(y =>
+            `<option value="${y}" ${y==config.year?'selected':''}>${y}</option>`).join('')}
+          </select></div>
+      </div>
+      <div class="toggle-row">
+        <span style="font-size:14px;">הגשת משמרות</span>
+        <button class="toggle ${isOpen?'on':'off'}" id="statusToggle" onclick="toggleStatus()"></button>
+      </div>
+      <div style="font-size:12px;color:var(--dim);margin-top:4px;">${isOpen ? 'עובדים יכולים להגיש העדפות' : 'ההגשה סגורה — עובדים לא יכולים לסמן'}</div>
+      <div class="section-divider"></div>
+      <button class="btn" onclick="saveConfig()">💾 שמור הגדרות</button>
+    </div>`;
+
+    // Danger zone
+    html += `<div class="card" style="border-color:var(--red);">
+      <div class="card-title" style="color:var(--red);">⚠️ אזור מסוכן</div>
+      <p style="font-size:12px;color:var(--dim);margin-bottom:12px;">מחיקת כל התגובות — לשימוש כשפותחים חודש חדש</p>
+      <button class="btn btn-red btn-sm" onclick="clearAllResponses()">🗑️ מחק כל התגובות</button>
+    </div>`;
+
+    // API
+    html += `<div class="card">
+      <div class="card-title">🔗 חיבור API</div>
+      <div style="font-size:11px;color:var(--dim);word-break:break-all;margin-bottom:8px;">${API_URL}</div>
+      <button class="btn btn-outline btn-sm" onclick="localStorage.removeItem('shifts67_api');location.reload();">שנה כתובת API</button>
+    </div>`;
+  }
+
+  // Refresh
+  html += `<div style="margin-top:16px;text-align:center;">
+    <button class="btn btn-outline btn-sm" style="width:auto;display:inline-block;" onclick="renderAdmin()">🔄 רענן</button></div>`;
 
   app.innerHTML = html;
 }
 
+// --- Shift edit helpers ---
+function buildShiftEditRow(idx, t) {
+  const dayOpts = DAY_NAMES.map((n, i) => `<option value="${i}" ${i==t.day?'selected':''}>${n}</option>`).join('');
+  return `<div class="shift-edit-row" data-idx="${idx}">
+    <select class="input input-sm" data-field="day" onchange="updateDayName(this)">${dayOpts}</select>
+    <input class="input input-sm" type="time" value="${t.start}" data-field="start">
+    <input class="input input-sm" type="time" value="${t.end}" data-field="end">
+    <span class="del-btn" onclick="this.parentElement.remove()">✕</span>
+  </div>`;
+}
+
+function addShiftRow() {
+  const list = document.getElementById('shiftsList');
+  const idx = list.children.length;
+  const div = document.createElement('div');
+  div.innerHTML = buildShiftEditRow(idx, { day: 2, dayName: 'שלישי', start: '17:00', end: '00:00' });
+  list.appendChild(div.firstElementChild);
+}
+
+function updateDayName(sel) { /* day name auto from select */ }
+
+async function saveShifts() {
+  const rows = document.querySelectorAll('.shift-edit-row');
+  const shifts = Array.from(rows).map(row => {
+    const day = Number(row.querySelector('[data-field="day"]').value);
+    return {
+      day,
+      dayName: DAY_NAMES[day],
+      start: row.querySelector('[data-field="start"]').value,
+      end: row.querySelector('[data-field="end"]').value
+    };
+  }).filter(s => s.start && s.end);
+
+  try {
+    await apiPost({ action: 'save_shifts', shifts });
+    adminData.templates = shifts;
+    toast('משמרות נשמרו! ✅');
+    renderAdminUI();
+  } catch { toast('שגיאה בשמירה', true); }
+}
+
+async function saveConfig() {
+  const month = Number(document.getElementById('cfgMonth').value);
+  const year = Number(document.getElementById('cfgYear').value);
+  try {
+    await apiPost({ action: 'save_config', month, year });
+    adminData.config.month = month;
+    adminData.config.year = year;
+    toast('הגדרות נשמרו! ✅');
+    renderAdminUI();
+  } catch { toast('שגיאה', true); }
+}
+
+async function toggleStatus() {
+  const newStatus = adminData.config.status === 'פתוח' ? 'סגור' : 'פתוח';
+  try {
+    await apiPost({ action: 'save_config', status: newStatus });
+    adminData.config.status = newStatus;
+    toast(newStatus === 'פתוח' ? '🟢 ההגשה נפתחה' : '🔴 ההגשה נסגרה');
+    renderAdminUI();
+  } catch { toast('שגיאה', true); }
+}
+
+async function addEmployee() {
+  const input = document.getElementById('newEmpName');
+  const name = input.value.trim();
+  if (!name) { toast('הכנס שם', true); return; }
+  try {
+    const res = await apiPost({ action: 'add_employee', name });
+    if (res.error) { toast(res.error, true); return; }
+    adminData.employees.push({ name: res.name, code: res.code });
+    toast(`${name} נוסף/ה! ✅`);
+    input.value = '';
+    renderAdminUI();
+  } catch { toast('שגיאה', true); }
+}
+
+async function removeEmployee(code, name) {
+  if (!confirm(`למחוק את ${name}?`)) return;
+  try {
+    await apiPost({ action: 'remove_employee', code });
+    adminData.employees = adminData.employees.filter(e => e.code !== code);
+    toast(`${name} הוסר/ה`);
+    renderAdminUI();
+  } catch { toast('שגיאה', true); }
+}
+
+async function clearAllResponses() {
+  if (!confirm('למחוק את כל התגובות? פעולה זו לא ניתנת לביטול!')) return;
+  if (!confirm('בטוח? כל ההגשות יימחקו.')) return;
+  try {
+    await apiPost({ action: 'clear_responses' });
+    adminData.responses = [];
+    toast('כל התגובות נמחקו');
+    renderAdminUI();
+  } catch { toast('שגיאה', true); }
+}
+
 function copyLink(link) {
   navigator.clipboard.writeText(link).then(() => toast('הלינק הועתק! 📋')).catch(() => {
-    // Fallback
-    const inp = document.createElement('input');
-    inp.value = link;
-    document.body.appendChild(inp);
-    inp.select();
-    document.execCommand('copy');
-    document.body.removeChild(inp);
-    toast('הלינק הועתק! 📋');
+    const inp = document.createElement('input'); inp.value = link;
+    document.body.appendChild(inp); inp.select(); document.execCommand('copy');
+    document.body.removeChild(inp); toast('הלינק הועתק! 📋');
   });
 }
 
 // Service worker
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('sw-shifts.js').catch(() => {});
-}
+if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw-shifts.js').catch(() => {});
 
-// ============================
-// INIT
-// ============================
 init();
 </script>
 </body>
