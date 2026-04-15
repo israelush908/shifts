@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="משמרות 67">
+<meta name="theme-color" content="#c9a96e">
+<link rel="manifest" href="manifest-shifts.json">
+<link rel="apple-touch-icon" href="icon-192x192.png">
+<title>67 Winery — משמרות</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700&display=swap');
+:root{--bg:#1a1714;--card:#242019;--accent:#c9a96e;--accent-dim:#8a7245;--text:#e8e0d4;--dim:#9a9080;--border:#3a3428;--green:#5a9a5a;--green-bg:#2a3a28;--red:#c47a6a;--red-bg:#3a2828;--blue:#6a8fb5;--blue-bg:#28303a;--yellow:#d4a843;--yellow-bg:#3a3520;--safe-top:env(safe-area-inset-top,0px);--safe-bottom:env(safe-area-inset-bottom,0px);}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+body{font-family:'Heebo',sans-serif;background:var(--bg);color:var(--text);min-height:100dvh;padding:calc(12px + var(--safe-top)) 14px calc(80px + var(--safe-bottom));-webkit-font-smoothing:antialiased;}
+.wrap{max-width:600px;margin:0 auto;}
+.header{text-align:center;margin-bottom:20px;}.header small{font-size:11px;letter-spacing:5px;color:var(--accent-dim);text-transform:uppercase;}.header h1{font-size:20px;font-weight:300;color:var(--accent);margin-top:2px;}.header .sub{font-size:13px;color:var(--dim);margin-top:4px;}
+.btn{background:var(--accent);color:var(--bg);border:none;border-radius:10px;padding:12px 28px;font-size:15px;font-weight:600;cursor:pointer;font-family:'Heebo',sans-serif;transition:all .15s;width:100%;}.btn:active{transform:scale(.97);opacity:.9;}.btn:disabled{opacity:.4;transform:none;}.btn-outline{background:transparent;color:var(--accent);border:1px solid var(--accent);}.btn-sm{padding:8px 16px;font-size:13px;width:auto;}.btn-red{background:var(--red);color:#fff;}.btn-green{background:var(--green);color:#fff;}
+.input{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:14px;padding:10px 14px;outline:none;font-family:'Heebo',sans-serif;}.input:focus{border-color:var(--accent);}.input-sm{padding:8px 10px;font-size:13px;}
+select.input{appearance:none;-webkit-appearance:none;cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%239a9080' viewBox='0 0 16 16'%3E%3Cpath d='m8 11-5-5h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:left 12px center;}
+.label{font-size:12px;color:var(--dim);margin-bottom:4px;display:block;}
+.card{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:12px;padding:16px;}.card-title{font-size:15px;font-weight:600;color:var(--accent);margin-bottom:12px;display:flex;align-items:center;gap:8px;}.section-divider{height:1px;background:var(--border);margin:16px 0;}
+.setup{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:24px;text-align:center;}.setup h2{font-size:18px;color:var(--accent);margin-bottom:16px;font-weight:400;}.setup .hint{font-size:12px;color:var(--dim);margin-bottom:16px;line-height:1.6;}
+.tabs{display:flex;gap:6px;margin-bottom:16px;overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:4px;}.tab{background:transparent;color:var(--dim);border:1px solid var(--border);border-radius:10px;padding:9px 14px;font-size:12px;cursor:pointer;font-family:'Heebo',sans-serif;white-space:nowrap;flex-shrink:0;transition:all .15s;}.tab.active{background:var(--accent);color:var(--bg);border-color:var(--accent);font-weight:600;}
+.greeting{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:18px;margin-bottom:16px;text-align:center;}.greeting .name{font-size:22px;font-weight:600;color:var(--accent);}.greeting .info{font-size:13px;color:var(--dim);margin-top:4px;}
+.week-card{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:12px;}.week-head{padding:10px 16px;background:var(--border);font-size:14px;font-weight:600;color:var(--accent);}
+.day-section{border-bottom:1px solid var(--border);}.day-section:last-child{border-bottom:none;}.day-head{padding:10px 16px 4px;font-size:14px;font-weight:600;color:var(--blue);display:flex;justify-content:space-between;align-items:center;}.day-date{font-size:13px;color:var(--dim);font-weight:400;}
+.shift-row{display:flex;align-items:center;padding:6px 16px 10px;gap:6px;transition:opacity .2s;}.shift-row.dimmed{opacity:.35;pointer-events:none;}
+.shift-time{font-size:14px;color:var(--text);min-width:90px;direction:ltr;text-align:right;font-weight:500;}.shift-hours{font-size:11px;color:var(--accent-dim);min-width:28px;}
+.pref-btns{display:flex;gap:4px;margin-right:auto;}.pref-btn{border:none;border-radius:8px;padding:6px 10px;font-size:11px;font-weight:600;cursor:pointer;font-family:'Heebo',sans-serif;transition:all .15s;min-width:44px;}.pref-btn:active{transform:scale(.93);}
+.pref-btn.want{background:var(--green-bg);color:var(--green);border:1px solid #5a9a5a44;}.pref-btn.want.active{background:var(--green);color:#fff;}
+.pref-btn.can{background:var(--yellow-bg);color:var(--yellow);border:1px solid #d4a84344;}.pref-btn.can.active{background:var(--yellow);color:#fff;}
+.pref-btn.cant{background:var(--red-bg);color:var(--red);border:1px solid #c47a6a44;}.pref-btn.cant.active{background:var(--red);color:#fff;}
+.submit-bar{position:fixed;bottom:0;left:0;right:0;padding:10px 14px calc(10px + var(--safe-bottom));background:linear-gradient(transparent,var(--bg) 30%);z-index:50;}.submit-bar .inner{max-width:600px;margin:0 auto;}.submit-bar .btn{box-shadow:0 -4px 20px rgba(0,0,0,.5);}
+.progress{font-size:12px;color:var(--dim);text-align:center;margin-bottom:6px;}.progress strong{color:var(--accent);}
+.earnings{background:linear-gradient(135deg,#2a3a28,#28303a);border:1px solid var(--green);border-radius:12px;padding:14px;text-align:center;margin-bottom:16px;}.earnings .amount{font-size:28px;font-weight:700;color:var(--green);}.earnings .elabel{font-size:12px;color:var(--dim);margin-top:2px;}
+.sched-card{background:var(--card);border:1px solid var(--green);border-radius:12px;padding:14px 16px;margin-bottom:8px;display:flex;align-items:center;gap:12px;}.sched-day{min-width:70px;}.sched-day .d{font-size:15px;font-weight:600;color:var(--accent);}.sched-day .dt{font-size:11px;color:var(--dim);}.sched-time{font-size:15px;font-weight:600;direction:ltr;}.sched-hrs{font-size:12px;color:var(--accent-dim);margin-right:auto;}
+.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;}.stat-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;text-align:center;}.stat-num{font-size:28px;font-weight:700;color:var(--accent);}.stat-label{font-size:12px;color:var(--dim);margin-top:2px;}
+.emp-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px 16px;margin-bottom:8px;display:flex;align-items:center;gap:12px;}.emp-avatar{width:36px;height:36px;border-radius:50%;background:var(--accent-dim);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;color:var(--bg);flex-shrink:0;}.emp-info{flex:1;min-width:0;}.emp-name{font-size:15px;font-weight:600;}.emp-status{font-size:12px;margin-top:2px;}.emp-status.done{color:var(--green);}.emp-status.pending{color:var(--red);}.emp-link{font-size:11px;color:var(--blue);cursor:pointer;text-decoration:underline;display:block;margin-top:4px;}.emp-del{color:var(--red);cursor:pointer;font-size:18px;padding:4px 8px;flex-shrink:0;}
+.matrix-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:16px;}.matrix{border-collapse:collapse;font-size:11px;min-width:100%;}.matrix th,.matrix td{padding:6px 8px;border:1px solid var(--border);text-align:center;white-space:nowrap;}.matrix th{background:var(--border);color:var(--accent);font-weight:600;position:sticky;top:0;}.matrix th:first-child{position:sticky;right:0;z-index:2;background:var(--card);}.matrix td:first-child{position:sticky;right:0;background:var(--card);font-weight:600;text-align:right;}.matrix .want{background:var(--green-bg);color:var(--green);font-weight:700;}.matrix .can{background:var(--yellow-bg);color:var(--yellow);}.matrix .cant{background:var(--red-bg);color:var(--red);}.matrix .empty-cell{color:var(--dim);}
+.assign-day{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:12px;}.assign-day-head{padding:10px 16px;background:var(--border);font-size:14px;font-weight:600;color:var(--accent);display:flex;justify-content:space-between;}.assign-shift{padding:10px 16px;border-bottom:1px solid rgba(58,52,40,.15);}.assign-shift:last-child{border-bottom:none;}.assign-shift-label{font-size:14px;color:var(--text);margin-bottom:6px;font-weight:500;}.assign-pref-hint{font-size:10px;margin-top:3px;}.assign-pref-hint .w{color:var(--green);}.assign-pref-hint .c{color:var(--yellow);}
+.shift-edit-row{display:flex;align-items:center;gap:6px;padding:8px 0;border-bottom:1px solid rgba(58,52,40,.15);}.shift-edit-row:last-child{border-bottom:none;}.shift-edit-row .del-btn{color:var(--red);cursor:pointer;font-size:20px;padding:0 6px;flex-shrink:0;}
+.toggle-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;}.toggle{width:48px;height:26px;border-radius:13px;border:none;cursor:pointer;position:relative;transition:background .2s;}.toggle.on{background:var(--green);}.toggle.off{background:var(--red);}.toggle::after{content:'';position:absolute;top:3px;width:20px;height:20px;border-radius:50%;background:#fff;transition:all .2s;}.toggle.on::after{right:3px;left:auto;}.toggle.off::after{left:3px;right:auto;}
+.loading{text-align:center;padding:40px;color:var(--dim);}.loading .spin{display:inline-block;width:24px;height:24px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg)}}.empty-state{text-align:center;padding:40px;color:var(--dim);}.empty-state .icon{font-size:40px;margin-bottom:12px;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}.card,.emp-card,.stat-card,.week-card,.assign-day,.sched-card{animation:fadeUp .25s ease-out;}
+.live-badge{display:inline-flex;align-items:center;gap:5px;font-size:11px;color:var(--dim);background:var(--card);border:1px solid var(--border);border-radius:20px;padding:3px 10px;margin-top:6px;cursor:default;}
+.live-dot{width:7px;height:7px;border-radius:50%;background:var(--green);animation:livePulse 2s ease-in-out infinite;flex-shrink:0;}
+@keyframes livePulse{0%,100%{opacity:1}50%{opacity:.3}}
+</style>
+</head>
+<body>
+<div class="wrap" id="app"></div>
+<div class="toast" id="toast" style="position:fixed;top:20px;left:50%;transform:translateX(-50%);background:var(--green);color:#fff;padding:10px 24px;border-radius:10px;font-size:14px;font-weight:600;z-index:999;opacity:0;transition:opacity .3s;pointer-events:none;"></div>
+<script>
+let API_URL=localStorage.getItem('shifts67_api')||'';
+const DN=['ראשון','שני','שלישי','רביעי','חמישי','שישי','מוצ"ש'];
+const MN=['','ינואר','פברואר','מרץ','אפריל','מאי','יוני','יולי','אוגוסט','ספטמבר','אוקטובר','נובמבר','דצמבר'];
+const app=document.getElementById('app');
+function gp(){const p=new URLSearchParams(location.search);return{code:p.get('code'),admin:p.get('admin')};}
+function toast(m,e){const t=document.getElementById('toast');t.textContent=m;t.style.background=e?'var(--red)':'var(--green)';t.style.opacity='1';setTimeout(()=>t.style.opacity='0',2500);}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
+
+// Robust time string extraction - handles "HH:MM", Date objects serialized as strings, etc.
+function fixTime(v){
+  if(!v)return'00:00';
+  const s=String(v);
+  // Already HH:MM
+  const hm=s.match(/^(\d{1,2}):(\d{2})$/);
+  if(hm)return hm[1].padStart(2,'0')+':'+hm[2];
+  // Extract from Date string like "Sat Dec 30 1899 17:00:00 GMT..."
+  const dt=s.match(/(\d{1,2}):(\d{2}):\d{2}/);
+  if(dt)return dt[1].padStart(2,'0')+':'+dt[2];
+  return'00:00';
+}
+
+function cH(startStr,endStr){
+  const s=fixTime(startStr),e=fixTime(endStr);
+  const[sh,sm]=s.split(':').map(Number),[eh,em]=e.split(':').map(Number);
+  let d=(eh*60+em)-(sh*60+sm);if(d<=0)d+=1440;
+  return Math.round(d/30)*.5;
+}
+
+function genMonth(month,year,templates){
+  const byDay={};
+  templates.forEach((t,globalIdx)=>{
+    const d=Number(t.day);if(!byDay[d])byDay[d]=[];
+    byDay[d].push({...t, start:fixTime(t.start), end:fixTime(t.end), slotIdx:byDay[d].length});
+  });
+  const weeks=[];let cw=[],wn=1;const dim=new Date(year,month,0).getDate();
+  for(let d=1;d<=dim;d++){
+    const dt=new Date(year,month-1,d),js=dt.getDay();
+    if(byDay[js]){
+      const ds=d+'.'+month; // dot-separated to prevent Sheets auto-format
+      cw.push({date:ds, dateDisplay:d+'/'+month, dayName:byDay[js][0].dayName, jsDay:js,
+        shifts:byDay[js].map((s,i)=>{
+          const h=cH(s.start,s.end);
+          // Unique key includes slot index to differentiate duplicate times
+          const shiftId=s.start+'-'+s.end+'#'+i;
+          return{id:ds+'|'+shiftId, shiftId, start:s.start, end:s.end, hours:h, display:s.start+'–'+s.end};
+        })
+      });
+    }
+    if(js===6||d===dim){if(cw.length){weeks.push({num:wn++,days:cw});cw=[];}}
+  }
+  return weeks;
+}
+
+function apiGet(a,p={}){return new Promise((res,rej)=>{
+  const cb='_c'+Math.random().toString(36).slice(2);
+  const qs=new URLSearchParams({action:a,callback:cb,...p}).toString();
+  window[cb]=d=>{delete window[cb];document.getElementById('_j')?.remove();res(d);};
+  const s=document.createElement('script');s.id='_j';s.src=API_URL+'?'+qs;
+  s.onerror=()=>{delete window[cb];rej(new Error('API'));};document.body.appendChild(s);});}
+function apiPost(d){return fetch(API_URL,{method:'POST',headers:{'Content-Type':'text/plain'},body:JSON.stringify(d)}).then(r=>r.json());}
+
+const{code,admin}=gp();
+function init(){if(!API_URL)renderSetup();else if(admin)renderAdmin();else if(code)renderEmployee(code);else renderLanding();}
+
+function renderSetup(){app.innerHTML=`<div class="header"><small>67 Winery</small><h1>הגדרת מערכת</h1></div><div class="setup"><h2>🔗 חיבור ל-Google Sheets</h2><div class="hint">הדבק את ה-URL של Apps Script Web App</div><input class="input" type="url" id="apiInput" placeholder="https://script.google.com/macros/s/..." dir="ltr" style="margin-bottom:12px;"><button class="btn" onclick="saveApi()">חבר</button></div>`;}
+function saveApi(){const u=document.getElementById('apiInput').value.trim();let valid=false;try{valid=new URL(u).hostname==='script.google.com';}catch{}if(!valid){toast('כתובת לא תקינה',1);return;}API_URL=u;localStorage.setItem('shifts67_api',u);toast('מחובר!');setTimeout(()=>location.reload(),500);}
+function renderLanding(){app.innerHTML=`<div class="header"><small>67 Winery</small><h1>מערכת משמרות</h1></div><div class="empty-state"><div class="icon">🔐</div><p>הקישור לא מכיל קוד זיהוי.</p></div><div style="margin-top:24px;text-align:center;"><button class="btn btn-outline btn-sm" onclick="location.href='?admin=1'" style="width:auto;display:inline-block;">כניסת מנהל</button> <button class="btn btn-outline btn-sm" style="width:auto;display:inline-block;" onclick="localStorage.removeItem('shifts67_api');location.reload();">שנה API</button></div>`;}
+
+// =========================================
+// EMPLOYEE
+// =========================================
+let prefs={},eName='',cfg={},tmpl=[],empTab='submit',myAssign=[];
+
+async function renderEmployee(code){
+  app.innerHTML=`<div class="loading"><div class="spin"></div><div style="margin-top:12px;">טוען...</div></div>`;
+  try{
+    const[emp,config,myR,templates,myA]=await Promise.all([apiGet('identify',{code}),apiGet('config'),apiGet('my_responses',{code}),apiGet('shift_templates'),apiGet('my_assignments',{code})]);
+    if(emp.error){app.innerHTML=`<div class="empty-state"><div class="icon">❌</div><p>קוד לא מזוהה</p></div>`;return;}
+    eName=emp.name;cfg=config;tmpl=templates;myAssign=myA||[];
+    // Load existing prefs
+    prefs={};
+    if(Array.isArray(myR))myR.forEach(r=>{const shift=r.shift.includes('#')?r.shift:r.shift+'#0';prefs[r.date+'|'+shift]=r.pref;});
+    renderEmpUI();startEmpPolling(code);
+  }catch(err){console.error(err);app.innerHTML=`<div class="empty-state"><div class="icon">⚠️</div><p>${esc(err.message)}</p></div>`;}
+}
+
+function renderEmpUI(){
+  const weeks=genMonth(cfg.month,cfg.year,tmpl);
+  const rate=Number(cfg.hourlyRate)||40;
+
+  let html=`<div class="header"><small>67 Winery</small><h1>משמרות</h1><div class="sub">${MN[cfg.month]} ${cfg.year}</div><div class="live-badge" id="liveBadge"><span class="live-dot"></span>Live</div></div>
+  <div class="greeting"><div class="name">היי ${eName} 👋</div></div>
+  <div class="tabs">
+    <button class="tab ${empTab==='submit'?'active':''}" onclick="empTab='submit';renderEmpUI()">📝 הגשת העדפות</button>
+    <button class="tab ${empTab==='schedule'?'active':''}" onclick="empTab='schedule';renderEmpUI()">📅 המשמרות שלי</button>
+  </div>`;
+
+  if(empTab==='submit'){
+    if(cfg.status!=='פתוח'){
+      html+=`<div class="empty-state"><div class="icon">🔒</div><p>הגשת משמרות סגורה כרגע</p></div>`;
+    }else{
+      // Calc earnings from positive prefs
+      let totalHrs=0,totalShifts=0;
+      weeks.forEach(w=>w.days.forEach(d=>d.shifts.forEach(s=>{
+        totalShifts++;
+        const k=d.date+'|'+s.shiftId;
+        const p=prefs[k];
+        if(p==='רוצה'||p==='יכול')totalHrs+=s.hours;
+      })));
+      const earn=Math.round(totalHrs*rate);
+      const posCount=Object.values(prefs).filter(v=>v==='רוצה'||v==='יכול').length;
+
+      if(posCount>0){
+        html+=`<div class="earnings"><div class="amount">₪${earn.toLocaleString()}</div>
+          <div class="elabel">${posCount} משמרות · ${totalHrs} שעות · ₪${rate}/שעה</div></div>`;
+      }
+
+      weeks.forEach(week=>{
+        html+=`<div class="week-card"><div class="week-head">שבוע ${week.num}</div>`;
+        week.days.forEach(day=>{
+          // Find if this day has a positive selection
+          const dayHasPos=day.shifts.some(s=>{const p=prefs[day.date+'|'+s.shiftId];return p==='רוצה'||p==='יכול';});
+
+          html+=`<div class="day-section"><div class="day-head"><span>${day.dayName} <span class="day-date">${day.dateDisplay}</span></span>`;
+          if(dayHasPos)html+=`<span style="font-size:11px;color:var(--green);">✓ נבחרה</span>`;
+          html+=`</div>`;
+
+          day.shifts.forEach(shift=>{
+            const key=day.date+'|'+shift.shiftId;
+            const cur=prefs[key]||'';
+            const isPositive=cur==='רוצה'||cur==='יכול';
+            const otherHasPos=dayHasPos&&!isPositive;
+            const dimClass=otherHasPos&&cur!=='לא יכול'?'dimmed':'';
+
+            html+=`<div class="shift-row ${dimClass}">
+              <span class="shift-time">${shift.display}</span>
+              <span class="shift-hours">${shift.hours}h</span>
+              <div class="pref-btns">
+                <button class="pref-btn want ${cur==='רוצה'?'active':''}" onclick="sp('${key}','רוצה','${day.date}')">רוצה</button>
+                <button class="pref-btn can ${cur==='יכול'?'active':''}" onclick="sp('${key}','יכול','${day.date}')">יכול</button>
+                <button class="pref-btn cant ${cur==='לא יכול'?'active':''}" onclick="sp('${key}','לא יכול','${day.date}')">לא יכול</button>
+              </div></div>`;
+          });
+          html+=`</div>`;
+        });
+        html+=`</div>`;
+      });
+
+      const filled=Object.keys(prefs).length;
+      html+=`<div class="submit-bar"><div class="inner">
+        <div class="progress">סומנו <strong>${filled}</strong> מתוך <strong>${totalShifts}</strong></div>
+        <button class="btn" id="subBtn" ${filled===0?'disabled':''} onclick="doSubmit()">שלח העדפות</button></div></div>`;
+    }
+  }
+
+  if(empTab==='schedule'){
+    if(!myAssign||!myAssign.length){
+      html+=`<div class="empty-state"><div class="icon">📭</div><p>עדיין לא שובצת למשמרות</p><p style="font-size:13px;margin-top:8px;">המנהל ישבץ בקרוב.</p></div>`;
+    }else{
+      let totalH=0;
+      const sorted=[...myAssign].sort((a,b)=>{const[ad,am]=a.date.split('.').map(Number),[bd,bm]=b.date.split('.').map(Number);return(am*100+ad)-(bm*100+bd);});
+      sorted.forEach(a=>{
+        // Extract time from shiftId: "08:00-16:00#0" → start=08:00, end=16:00
+        const timePart=a.shift.split('#')[0];
+        const[start,end]=timePart.split('-');
+        const h=cH(start,end);totalH+=h;
+        const[dd,mm]=a.date.split('.');
+        const dt=new Date(cfg.year,mm-1,dd);
+        html+=`<div class="sched-card"><div class="sched-day"><div class="d">${DN[dt.getDay()]}</div><div class="dt">${dd}/${mm}</div></div>
+          <div class="sched-time">${fixTime(start)}–${fixTime(end)}</div><div class="sched-hrs">${h}h</div></div>`;
+      });
+      html+=`<div class="earnings" style="margin-top:16px;"><div class="amount">₪${Math.round(totalH*rate).toLocaleString()}</div>
+        <div class="elabel">${myAssign.length} משמרות · ${totalH} שעות · ₪${rate}/שעה</div></div>`;
+    }
+  }
+
+  app.innerHTML=html;
+}
+
+function sp(key,pref,dayDate){
+  if(prefs[key]===pref){delete prefs[key];}
+  else{
+    if(pref==='רוצה'||pref==='יכול'){
+      // Remove other positive prefs for this day (one per day rule)
+      Object.keys(prefs).forEach(k=>{
+        if(k.startsWith(dayDate+'|')&&k!==key&&prefs[k]!=='לא יכול')delete prefs[k];
+      });
+    }
+    prefs[key]=pref;
+  }
+  renderEmpUI();
+}
+
+async function doSubmit(){
+  const btn=document.getElementById('subBtn');if(!btn)return;btn.disabled=true;btn.textContent='שולח...';
+  // key format: "3.6|08:00-16:00#0" → date="3.6", shift="08:00-16:00#0"
+  const p=Object.entries(prefs).map(([k,v])=>{const i=k.indexOf('|');return{date:k.slice(0,i),shift:k.slice(i+1),pref:v};});
+  try{await apiPost({action:'submit_prefs',code:gp().code,month:cfg.month,year:cfg.year,preferences:p});
+    toast('נשלח בהצלחה! ✅');btn.textContent='✅ נשלח!';btn.style.background='var(--green)';
+  }catch(err){console.error(err);toast('שגיאה',1);btn.disabled=false;btn.textContent='שלח העדפות';}
+}
+
+// =========================================
+// ADMIN
+// =========================================
+let aTab='overview',aD={};
+
+async function renderAdmin(){
+  app.innerHTML=`<div class="loading"><div class="spin"></div><div style="margin-top:12px;">טוען...</div></div>`;
+  try{const[c,e,r,t,a]=await Promise.all([apiGet('config'),apiGet('employees'),apiGet('responses'),apiGet('shift_templates'),apiGet('assignments')]);
+    aD={config:c,employees:e,responses:r||[],templates:t,assignments:a||[]};renderAUI();startAdminPolling();
+  }catch(err){console.error(err);app.innerHTML=`<div class="empty-state"><div class="icon">⚠️</div><p>${esc(err.message)}</p><button class="btn btn-sm" style="margin-top:16px;width:auto;" onclick="renderAdmin()">נסה שוב</button></div>`;}
+}
+
+function renderAUI(){
+  const{config:c,employees:emp,responses:res,templates:t,assignments:assigns}=aD;
+  const weeks=genMonth(c.month,c.year,t);
+  const totalShifts=weeks.reduce((s,w)=>s+w.days.reduce((s2,d)=>s2+d.shifts.length,0),0);
+  const subSet=new Set(res.map(r=>r.name));
+  const subCount=emp.filter(e=>subSet.has(e.name)).length;
+  const base=location.origin+location.pathname;
+  const isOpen=c.status==='פתוח';
+
+  let html=`<div class="header"><small>67 Winery</small><h1>דשבורד מנהל</h1><div class="sub">${MN[c.month]} ${c.year} · ${isOpen?'🟢 פתוח':'🔴 סגור'}</div><div class="live-badge" id="liveBadge"><span class="live-dot"></span>Live</div></div>
+  <div class="stat-grid">
+    <div class="stat-card"><div class="stat-num">${emp.length}</div><div class="stat-label">עובדים</div></div>
+    <div class="stat-card"><div class="stat-num">${subCount}/${emp.length}</div><div class="stat-label">הגישו</div></div>
+    <div class="stat-card"><div class="stat-num">${totalShifts}</div><div class="stat-label">משמרות</div></div>
+    <div class="stat-card"><div class="stat-num">${assigns.length}</div><div class="stat-label">שיבוצים</div></div>
+  </div>
+  <div class="tabs">${['overview','matrix','assign','shifts','settings'].map(tab=>{
+    const l={overview:'👥 עובדים',matrix:'📊 מטריצה',assign:'📋 שיבוצים',shifts:'🕐 משמרות',settings:'⚙️ הגדרות'};
+    return`<button class="tab ${aTab===tab?'active':''}" onclick="aTab='${tab}';renderAUI()">${l[tab]}</button>`;}).join('')}</div>`;
+
+  // OVERVIEW
+  if(aTab==='overview'){
+    html+=`<div class="card"><div class="card-title">➕ הוסף עובד/ת</div><div style="display:flex;gap:8px;"><input class="input input-sm" id="newEmp" placeholder="שם"><button class="btn btn-sm btn-green" onclick="addEmp()">הוסף</button></div></div>`;
+    emp.forEach(e=>{const did=subSet.has(e.name);const link=base+'?code='+e.code;
+      html+=`<div class="emp-card"><div class="emp-avatar">${esc(e.name.charAt(0))}</div><div class="emp-info"><div class="emp-name">${esc(e.name)}</div><div class="emp-status ${did?'done':'pending'}">${did?'✅ הגיש/ה':'⏳ ממתין/ה'}</div><div class="emp-link" data-link="${esc(link)}" onclick="cpL(this.dataset.link)">📋 העתק לינק</div></div><div class="emp-del" data-code="${esc(e.code)}" data-name="${esc(e.name)}" onclick="rmEmpEl(this)">🗑️</div></div>`;
+    });
+  }
+
+  // MATRIX
+  if(aTab==='matrix'){
+    if(!res.length){html+=`<div class="card" style="text-align:center;">📭 אין תגובות עדיין</div>`;}
+    else{
+      const names=[...new Set(res.map(r=>r.name))];
+      const sks=[];weeks.forEach(w=>w.days.forEach(d=>d.shifts.forEach(s=>{
+        sks.push({date:d.date,dateDisplay:d.dateDisplay,shiftId:s.shiftId,display:s.display,day:d.dayName});})));
+      const rm={};res.forEach(r=>{rm[r.name+'|'+r.date+'|'+r.shift]=r.pref;});
+
+      html+=`<div class="matrix-wrap"><table class="matrix"><thead><tr><th>משמרת</th>`;
+      names.forEach(n=>{html+=`<th>${esc(n)}</th>`;});html+=`</tr></thead><tbody>`;
+      sks.forEach(sk=>{
+        html+=`<tr><td>${sk.day} ${sk.dateDisplay}<br>${sk.display}</td>`;
+        names.forEach(n=>{
+          const p=rm[n+'|'+sk.date+'|'+sk.shiftId]||'';
+          const cls=p==='רוצה'?'want':p==='יכול'?'can':p==='לא יכול'?'cant':'empty-cell';
+          const txt=p==='רוצה'?'✓✓':p==='יכול'?'✓':p==='לא יכול'?'✗':'—';
+          html+=`<td class="${cls}">${txt}</td>`;});
+        html+=`</tr>`;});
+      html+=`</tbody></table></div><div style="font-size:11px;color:var(--dim);text-align:center;">✓✓ רוצה · ✓ יכול · ✗ לא יכול</div>`;
+    }
+  }
+
+  // ASSIGN
+  if(aTab==='assign'){
+    const am={};assigns.forEach(a=>{am[a.date+'|'+a.shift]=a;});
+    const rm={};res.forEach(r=>{const k=r.date+'|'+r.shift;if(!rm[k])rm[k]={};rm[k][r.name]=r.pref;});
+
+    html+=`<p style="font-size:12px;color:var(--dim);margin-bottom:12px;">בחר עובד/ת לכל משמרת. צבעים = העדפות.</p>`;
+    weeks.forEach(w=>w.days.forEach(day=>{
+      html+=`<div class="assign-day"><div class="assign-day-head"><span>${day.dayName}</span><span>${day.dateDisplay}</span></div>`;
+      day.shifts.forEach(shift=>{
+        const key=day.date+'|'+shift.shiftId;
+        const cur=am[key]?.code||'';
+        const prefMap=rm[key]||{};
+        html+=`<div class="assign-shift"><div class="assign-shift-label">${shift.display} (${shift.hours}h)</div>
+          <select class="input input-sm" data-date="${day.date}" data-shift="${shift.shiftId}">
+          <option value="">— לא משובץ —</option>`;
+        emp.forEach(e=>{const p=prefMap[e.name]||'';const icon=p==='רוצה'?'🟢 ':p==='יכול'?'🟡 ':p==='לא יכול'?'🔴 ':'⚪ ';
+          html+=`<option value="${esc(e.code)}" ${e.code===cur?'selected':''}>${icon}${esc(e.name)}</option>`;});
+        html+=`</select>`;
+        const wants=Object.entries(prefMap).filter(([,v])=>v==='רוצה').map(([n])=>n);
+        const cans=Object.entries(prefMap).filter(([,v])=>v==='יכול').map(([n])=>n);
+        if(wants.length||cans.length){html+=`<div class="assign-pref-hint">`;if(wants.length)html+=`<span class="w">רוצים: ${wants.map(esc).join(', ')}</span> `;if(cans.length)html+=`<span class="c">יכולים: ${cans.map(esc).join(', ')}</span>`;html+=`</div>`;}
+        html+=`</div>`;
+      });
+      html+=`</div>`;
+    }));
+    html+=`<div style="position:sticky;bottom:0;padding:12px 0;background:linear-gradient(transparent,var(--bg) 30%);"><button class="btn" id="saveABtn" onclick="saveAssign()">💾 שמור שיבוצים</button></div>`;
+  }
+
+  // SHIFTS
+  if(aTab==='shifts'){
+    html+=`<div class="card"><div class="card-title">🕐 תבניות משמרות</div><div id="shiftsList">`;
+    (t||[]).forEach((s,i)=>{html+=sER(i,s);});
+    html+=`</div><button class="btn btn-outline btn-sm" style="margin-top:12px;" onclick="addSR()">+ הוסף משמרת</button><div class="section-divider"></div><button class="btn" onclick="saveShifts()">💾 שמור</button></div>`;
+    const twh=(t||[]).reduce((s,x)=>s+cH(x.start,x.end),0);
+    html+=`<div class="card" style="text-align:center;"><div style="font-size:13px;color:var(--dim);">סה״כ שבועי</div><div style="font-size:28px;font-weight:700;color:var(--accent);">${twh} שעות</div><div style="font-size:12px;color:var(--dim);">${(t||[]).length} משמרות</div></div>`;
+  }
+
+  // SETTINGS
+  if(aTab==='settings'){
+    html+=`<div class="card"><div class="card-title">📅 חודש פעיל</div>
+      <div style="display:flex;gap:8px;margin-bottom:12px;">
+      <div style="flex:1;"><label class="label">חודש</label><select class="input input-sm" id="cfgM">${[1,2,3,4,5,6,7,8,9,10,11,12].map(m=>`<option value="${m}" ${m==c.month?'selected':''}>${MN[m]}</option>`).join('')}</select></div>
+      <div style="flex:1;"><label class="label">שנה</label><select class="input input-sm" id="cfgY">${[2025,2026,2027].map(y=>`<option value="${y}" ${y==c.year?'selected':''}>${y}</option>`).join('')}</select></div></div>
+      <div class="toggle-row"><span>הגשת משמרות</span><button class="toggle ${isOpen?'on':'off'}" onclick="togStat()"></button></div>
+      <div style="font-size:12px;color:var(--dim);margin-top:4px;">${isOpen?'פתוח':'סגור'}</div>
+      <div class="section-divider"></div>
+      <label class="label">שכר לשעה (₪)</label><input class="input input-sm" type="number" id="cfgRate" value="${c.hourlyRate||40}" style="margin-bottom:12px;">
+      <div class="section-divider"></div><button class="btn" onclick="saveCfg()">💾 שמור</button></div>`;
+    html+=`<div class="card" style="border-color:var(--red);"><div class="card-title" style="color:var(--red);">⚠️ אזור מסוכן</div><p style="font-size:12px;color:var(--dim);margin-bottom:12px;">מחיקת כל התגובות והשיבוצים</p><button class="btn btn-red btn-sm" onclick="clearAll()">🗑️ מחק הכל</button></div>`;
+    html+=`<div class="card"><div class="card-title">🔗 API</div><div style="font-size:11px;color:var(--dim);word-break:break-all;margin-bottom:8px;">${API_URL}</div><button class="btn btn-outline btn-sm" onclick="localStorage.removeItem('shifts67_api');location.reload();">שנה</button></div>`;
+  }
+
+  html+=`<div style="margin-top:16px;text-align:center;"><button class="btn btn-outline btn-sm" style="width:auto;display:inline-block;" onclick="renderAdmin()">🔄 רענן</button></div>`;
+  app.innerHTML=html;
+}
+
+// Shift edit helpers
+function sER(i,t){
+  const start=fixTime(t.start),end=fixTime(t.end);
+  const opts=DN.map((n,j)=>`<option value="${j}" ${j==t.day?'selected':''}>${n}</option>`).join('');
+  return`<div class="shift-edit-row"><select class="input input-sm" data-field="day">${opts}</select><input class="input input-sm" type="time" value="${start}" data-field="start"><input class="input input-sm" type="time" value="${end}" data-field="end"><span class="del-btn" onclick="this.parentElement.remove()">✕</span></div>`;}
+function addSR(){const l=document.getElementById('shiftsList');const d=document.createElement('div');d.innerHTML=sER(l.children.length,{day:2,start:'17:00',end:'00:00'});l.appendChild(d.firstElementChild);}
+
+async function saveShifts(){
+  const rows=document.querySelectorAll('.shift-edit-row');
+  const shifts=Array.from(rows).map(r=>{const d=Number(r.querySelector('[data-field="day"]').value);
+    return{day:d,dayName:DN[d],start:r.querySelector('[data-field="start"]').value,end:r.querySelector('[data-field="end"]').value};}).filter(s=>s.start&&s.end);
+  try{await apiPost({action:'save_shifts',shifts});aD.templates=shifts;toast('נשמר! ✅');renderAUI();}catch(err){console.error(err);toast('שגיאה',1);}
+}
+async function saveCfg(){const m=Number(document.getElementById('cfgM').value),y=Number(document.getElementById('cfgY').value),rate=Number(document.getElementById('cfgRate').value)||40;
+  try{await apiPost({action:'save_config',month:m,year:y,hourlyRate:rate,status:aD.config.status});aD.config.month=m;aD.config.year=y;aD.config.hourlyRate=rate;toast('נשמר! ✅');renderAUI();}catch(err){console.error(err);toast('שגיאה',1);}}
+async function togStat(){const ns=aD.config.status==='פתוח'?'סגור':'פתוח';const c=aD.config;
+  try{await apiPost({action:'save_config',month:c.month,year:c.year,hourlyRate:c.hourlyRate,status:ns});aD.config.status=ns;toast(ns==='פתוח'?'🟢 נפתח':'🔴 נסגר');renderAUI();}catch(err){console.error(err);toast('שגיאה',1);}}
+async function addEmp(){const inp=document.getElementById('newEmp');const n=inp.value.trim();if(!n){toast('הכנס שם',1);return;}
+  try{const r=await apiPost({action:'add_employee',name:n});if(r.error){toast(r.error,1);return;}aD.employees.push({name:r.name,code:r.code});toast(n+' נוסף/ה!');inp.value='';renderAUI();}catch(err){console.error(err);toast('שגיאה',1);}}
+function rmEmpEl(el){rmEmp(el.dataset.code,el.dataset.name);}
+async function rmEmp(code,name){if(!confirm('למחוק את '+name+'?'))return;
+  try{await apiPost({action:'remove_employee',code});aD.employees=aD.employees.filter(e=>e.code!==code);toast(name+' הוסר/ה');renderAUI();}catch(err){console.error(err);toast('שגיאה',1);}}
+async function clearAll(){if(!confirm('למחוק הכל?'))return;if(!confirm('בטוח?'))return;
+  try{await apiPost({action:'clear_responses'});aD.responses=[];aD.assignments=[];toast('נמחק');renderAUI();}catch(err){console.error(err);toast('שגיאה',1);}}
+async function saveAssign(){const btn=document.getElementById('saveABtn');btn.disabled=true;btn.textContent='שומר...';
+  const sels=document.querySelectorAll('.assign-shift select');const assignments=[];
+  sels.forEach(sel=>{if(sel.value){const e=aD.employees.find(x=>x.code===sel.value);
+    if(e)assignments.push({name:e.name,code:e.code,date:sel.dataset.date,shift:sel.dataset.shift});}});
+  try{await apiPost({action:'save_assignments',assignments});aD.assignments=assignments;
+    toast(assignments.length+' שיבוצים נשמרו! ✅');btn.textContent='💾 שמור שיבוצים';btn.disabled=false;
+  }catch(err){console.error(err);toast('שגיאה',1);btn.textContent='💾 שמור שיבוצים';btn.disabled=false;}}
+function cpL(l){navigator.clipboard.writeText(l).then(()=>toast('הועתק! 📋')).catch(()=>{const i=document.createElement('input');i.value=l;document.body.appendChild(i);i.select();document.execCommand('copy');document.body.removeChild(i);toast('הועתק! 📋');});}
+
+// =========================================
+// LIVE POLLING
+// =========================================
+let _pollTimer=null,_pollMode=null,_pollCode=null;
+
+function stopPolling(){if(_pollTimer){clearTimeout(_pollTimer);_pollTimer=null;}_pollMode=null;_pollCode=null;}
+
+function _schedPoll(ms,fn){
+  _pollTimer=setTimeout(async()=>{
+    try{await fn();}catch(e){}
+    if(_pollMode)_schedPoll(ms,fn);
+  },ms);
+}
+
+function _setLiveBadge(){
+  const el=document.getElementById('liveBadge');
+  if(!el)return;
+  const t=new Date().toLocaleTimeString('he-IL',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+  el.innerHTML=`<span class="live-dot"></span>Live · ${t}`;
+}
+
+function startAdminPolling(){
+  if(_pollTimer)clearTimeout(_pollTimer);
+  _pollMode='admin';
+  _schedPoll(30000,async()=>{
+    const[r,a,e]=await Promise.all([apiGet('responses'),apiGet('assignments'),apiGet('employees')]);
+    let ch=false;
+    if(JSON.stringify(r||[])!==JSON.stringify(aD.responses)){aD.responses=r||[];ch=true;}
+    if(JSON.stringify(a||[])!==JSON.stringify(aD.assignments)){aD.assignments=a||[];ch=true;}
+    if(JSON.stringify(e||[])!==JSON.stringify(aD.employees)){aD.employees=e||[];ch=true;}
+    _setLiveBadge();
+    if(ch){toast('🔄 נתונים עודכנו');renderAUI();}
+  });
+}
+
+function startEmpPolling(c){
+  if(_pollTimer)clearTimeout(_pollTimer);
+  _pollMode='emp';_pollCode=c;
+  _schedPoll(60000,async()=>{
+    const[myA,c2]=await Promise.all([apiGet('my_assignments',{code:c}),apiGet('config')]);
+    let ch=false;
+    if(JSON.stringify(myA||[])!==JSON.stringify(myAssign)){myAssign=myA||[];ch=true;}
+    if(JSON.stringify(c2)!==JSON.stringify(cfg)){cfg=c2;ch=true;}
+    _setLiveBadge();
+    if(ch){toast('📅 עודכן!');renderEmpUI();}
+  });
+}
+
+document.addEventListener('visibilitychange',()=>{
+  if(document.hidden){if(_pollTimer){clearTimeout(_pollTimer);_pollTimer=null;}}
+  else if(_pollMode==='admin'){startAdminPolling();}
+  else if(_pollMode==='emp'&&_pollCode){startEmpPolling(_pollCode);}
+});
+
+if('serviceWorker'in navigator)navigator.serviceWorker.register('sw-shifts.js').catch(()=>{});
+init();
+</script>
+</body>
+</html>
